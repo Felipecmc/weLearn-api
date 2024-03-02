@@ -1,0 +1,35 @@
+{
+  "name": "welearn-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felipecmc/weLearn-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Felipecmc/weLearn-api/issues"
+  },
+  "homepage": "https://github.com/Felipecmc/weLearn-api#readme",
+  "description": "",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.24",
+    "express": "^4.18.3",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "sequelize": "^6.37.1",
+    "sequelize-typescript": "^2.1.6",
+    "sqlite3": "^5.1.7"
+  }
+}
