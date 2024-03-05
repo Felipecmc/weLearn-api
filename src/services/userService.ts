@@ -8,7 +8,7 @@ class UserService {
 
   public async createUser(userData: CreateUserDTO): Promise<User> {
     try {
-      const hashedPassword = await PasswordUtils.hashPassword(userData.senha);
+      const hashedPassword = await User.generateHash(userData.senha);
       // Cria um novo usuário com os dados recebidos do DTO
       const newUser = await User.create({
         nome: userData.nome,

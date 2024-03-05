@@ -1,5 +1,8 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config'; 
+import bcrypt from 'bcryptjs';
+
+
 
 class User extends Model {
   public id!: number;
@@ -9,7 +12,18 @@ class User extends Model {
   public senha!: string;
   public xp!: number;
   public weCoin!: number;
+
+  static async generateHash(password: string): Promise<string> {
+    return bcrypt.hash(password, 10);
+  }
+  
+  static async compareHash(password: string, hash: string): Promise<boolean> {
+    return bcrypt.compare(password, hash);
+  }
 }
+
+
+
 
 User.init(
   {
