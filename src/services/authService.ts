@@ -34,7 +34,7 @@ class AuthService {
         return;
       }
 
-      req.body.user = decoded;
+      req.body.tokenInfo = decoded;
       next();
     } catch (error) {
       console.error('Erro na verificação do token:', error);

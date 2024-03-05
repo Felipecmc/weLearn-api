@@ -25,6 +25,19 @@ class UserService {
     }
   }
 
+  public async getUser(id: number){
+      const user = await User.findByPk(id)
+      if (user){
+        user.senha = "*********"
+        return user;
+      }else{
+        throw new Error();
+      }
+    
+      
+    
+  }
+
   public async editUser(userData: EditUserDTO, id: number){
     try {
       const user = await User.findByPk(id)
@@ -38,6 +51,17 @@ class UserService {
     }catch (error) {
       throw new Error('Erro ao criar usuário');
     } 
+  }
+
+  public async deleteUser(id: number, tokenId: number){
+    const user = await User.findByPk(id);
+
+    if(id === tokenId && user){
+      user.destroy()
+      return;
+    }else{
+      throw new Error("Erro ao deletar Usuário");
+    }
   }
 }
 

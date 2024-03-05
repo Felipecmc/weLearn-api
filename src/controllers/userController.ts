@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import UserService from '../services/userService';
 import CreateUserDTO from '../dtos/createUserDTO';
 import userService from '../services/userService';
+import ReturnCreateUserDTO from '../dtos/returnCreateUserDTO';
 
 class UserController {
 
@@ -10,7 +11,8 @@ class UserController {
       const userData: CreateUserDTO = req.body;
 
       const newUser = await UserService.createUser(userData);
-      const newUserData = {id: newUser.id, nome: newUser.nome, email: newUser.email, perfil: newUser.perfil}
+
+      const newUserData: ReturnCreateUserDTO = {id: newUser.id, nome: newUser.nome, email: newUser.email, perfil: newUser.perfil}
       res.status(201).json(newUserData);
     } catch (error) {
       console.error('Erro ao criar usuário:', error);
@@ -18,19 +20,44 @@ class UserController {
     }
   }
 
-  public async editUser(req: Request, res: Response){
+  public async getUser(req: Request, res: Response): Promise<void>{
+    try {
+      const userId = parseInt(req.params.id);
+
+      const user = await userService.getUser(userId);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(404).json({error: 'Usuário não encontrado'})
+    }
+  } 
+
+  public async editUser(req: Request, res: Response): Promise<void>{
     try {
         const userId = parseInt(req.params.id);
         const editedUserData = req.body;
         
         const editedUser = await userService.editUser(editedUserData, userId)
 
-        return res.status(200).json(editedUser)
+        res.status(200).json(editedUser)
 
     } catch (error) {
-        return res.status(400).json({error: "erro ao editar as informações do usuário"});
+        res.status(400).json({error: "Erro ao editar as informações do usuário"});
     }
   }
+
+  public async deleteUser(req: Request, res: Response): Promise<void>{
+    try {
+      const id = parseInt(req.params.id);
+      const tokenId = parseInt(req.body.tokenInfo.id);
+
+      const deleteUser = await userService.deleteUser(id, tokenId);
+      res.status(200).json(deleteUser)
+    } catch (error) {
+      res.status(400).json({error: "Erro ao deletar o usuário"});
+    }
+  } 
+
+  
 }
 
 export default new UserController();
