@@ -1,8 +1,7 @@
-import { IntegerDataType } from 'sequelize';
+import { error } from 'console';
 import CreateUserDTO from '../dtos/createUserDTO';
 import EditUserDTO from '../dtos/editUserDTO';
 import User from '../models/User';
-import PasswordUtils from '../utils/PasswordUtils';
 
 class UserService {
 
@@ -33,9 +32,6 @@ class UserService {
       }else{
         throw new Error();
       }
-    
-      
-    
   }
 
   public async editUser(userData: EditUserDTO, id: number){
@@ -53,8 +49,12 @@ class UserService {
     } 
   }
 
-  public async deleteUser(id: number, tokenId: number){
+  public async deleteUser(id: number, tokenId: number, senha: string){
     const user = await User.findByPk(id);
+
+    if (!user || !(await User.compareHash(senha, user.senha))) {
+      throw new Error();
+    }
 
     if(id === tokenId && user){
       user.destroy()

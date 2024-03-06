@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import UserService from '../services/userService';
 import CreateUserDTO from '../dtos/createUserDTO';
 import userService from '../services/userService';
-import ReturnCreateUserDTO from '../dtos/returnCreateUserDTO';
+import ReturnUserDTO from '../dtos/returnUserDTO';
 
 class UserController {
 
@@ -12,10 +12,9 @@ class UserController {
 
       const newUser = await UserService.createUser(userData);
 
-      const newUserData: ReturnCreateUserDTO = {id: newUser.id, nome: newUser.nome, email: newUser.email, perfil: newUser.perfil}
+      const newUserData: ReturnUserDTO = {id: newUser.id, nome: newUser.nome, email: newUser.email, perfil: newUser.perfil}
       res.status(201).json(newUserData);
     } catch (error) {
-      console.error('Erro ao criar usuário:', error);
       res.status(500).json({ error: 'Erro ao criar usuário' });
     }
   }
@@ -25,7 +24,9 @@ class UserController {
       const userId = parseInt(req.params.id);
 
       const user = await userService.getUser(userId);
-      res.status(200).json(user);
+      const UserData: ReturnUserDTO = {id: user.id, nome: user.nome, email: user.email, perfil: user.perfil}
+      res.status(200).json(UserData
+        );
     } catch (error) {
       res.status(404).json({error: 'Usuário não encontrado'})
     }
@@ -49,8 +50,9 @@ class UserController {
     try {
       const id = parseInt(req.params.id);
       const tokenId = parseInt(req.body.tokenInfo.id);
+      const senha = req.body.senha;
 
-      const deleteUser = await userService.deleteUser(id, tokenId);
+      const deleteUser = await userService.deleteUser(id, tokenId, senha);
       res.status(200).json(deleteUser)
     } catch (error) {
       res.status(400).json({error: "Erro ao deletar o usuário"});

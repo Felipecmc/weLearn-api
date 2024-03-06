@@ -9,7 +9,7 @@ const modelsToSync = [User /* Adicione outros modelos aqui */];
 async function syncModels(models: typeof Model[]) {
   try {
     for (const model of models) {
-      await model.sync({ force: true });
+      await model.sync({ force: false });
       console.log(`Tabela ${model.name} sincronizada com sucesso.`);
     }
   } catch (error) {

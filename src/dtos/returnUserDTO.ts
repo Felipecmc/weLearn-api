@@ -1,8 +1,8 @@
-interface ReturnCreateUserDTO {
+interface ReturnUserDTO {
     id: number
     nome: string;
     email: string;
     perfil: 'Aluno' | 'Professor';
   }
 
-export default ReturnCreateUserDTO;
+export default ReturnUserDTO;
