@@ -19,7 +19,6 @@ class UserService {
       return newUser;
       
     } catch (error) {
-      console.error('Erro ao criar usuário:', error);
       throw new Error('Erro ao criar usuário');
     }
   }

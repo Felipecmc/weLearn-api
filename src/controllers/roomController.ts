@@ -1,0 +1,70 @@
+import { Request, Response } from "express";
+import RoomService from "../services/roomService"
+
+class RoomController{
+
+    public async createRoom(req: Request, res: Response){
+        try {
+            const roomData = req.body
+            const newRoom = await RoomService.create(roomData)
+            
+            res.status(201).json(newRoom);
+
+        } catch (error) {
+            return res.status(400).json(error)
+        }
+    }
+
+    public async getAllTeacherRooms(req: Request, res: Response){
+        try {
+           const  idTeacher = parseInt(req.params.id)
+           
+           const rooms = await  RoomService.getAllRoomsTeacher(idTeacher)
+
+           res.status(200).json(rooms)
+
+        } catch (error) {
+            return res.status(400).json("nao encontramos salas")
+        }
+    }
+
+    public async editRoom(req: Request, res: Response): Promise<void> {
+        try {
+            const  roomData  = req.body
+            const idRoom = req.params.idRoom
+            const idTeacher = req.params.idTeacher
+            const room = await  RoomService.editRoom(roomData, idTeacher, idRoom);
+            res.status(200).json(room);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao editar sala' });
+        }
+    }
+
+    public async editRoomStatus(req: Request, res: Response): Promise<void> {
+        try {
+            const  roomData  = req.body
+            const idRoom = req.params.idRoom
+            const idTeacher = req.params.idTeacher
+            const room = await  RoomService.editRoomStatus(roomData, idTeacher, idRoom);
+            res.status(200).json(room);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao editar status da sala' });
+        }
+    }
+
+    public async deleteRoom(req: Request, res: Response): Promise<void> {
+        try {
+            const idRoom = req.params.idRoom
+            const idTeacher = req.params.idTeacher
+            await  RoomService.deleteRoom(idRoom, idTeacher);
+            res.status(200).send('Sala excluída com sucesso');
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao excluir sala' });
+        }
+    }
+}
+
+export default new RoomController()

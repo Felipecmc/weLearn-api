@@ -1,10 +1,11 @@
 import { Model } from 'sequelize';
 import sequelize from './config';
 import User from './models/User';
+import Room from './models/Room';
 // Importe outros modelos conforme necessário
 
 // Lista de modelos que deseja sincronizar
-const modelsToSync = [User /* Adicione outros modelos aqui */];
+const modelsToSync = [User, Room /* Adicione outros modelos aqui */];
 
 async function syncModels(models: typeof Model[]) {
   try {
@@ -24,7 +25,7 @@ async function initialize() {
   try{
     syncModels(modelsToSync);
   }catch(error){
-    console.log("Deu ruim viado")
+    console.log("erro ao sincronizar tabelas")
   }
 }
 

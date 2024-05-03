@@ -47,6 +47,7 @@ User.init(
         isEmail: true,
       },
     },
+    
     perfil: {
       type: DataTypes.ENUM('Aluno', 'Professor'),
       allowNull: false,
