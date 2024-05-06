@@ -6,8 +6,8 @@ const roomRoutes = express.Router()
 
 roomRoutes.post("/", AuthService.protectedRoute, RoomController.createRoom)
 roomRoutes.get("/:id", AuthService.protectedRoute, RoomController.getAllTeacherRooms)
-roomRoutes.put("/:idTeacher/:idRoom", AuthService.protectedRoute, RoomController.editRoom)
-roomRoutes.get("/:idTeacher/:idRoom", AuthService.protectedRoute, RoomController.editRoomStatus)
-roomRoutes.delete("/:idTeacher/:idroom", AuthService.protectedRoute, RoomController.deleteRoom)
+roomRoutes.put("/:idRoom", AuthService.protectedRoute, RoomController.editRoom)
+roomRoutes.get("/status/:idRoom", AuthService.protectedRoute, RoomController.editRoomStatus)
+roomRoutes.delete("/:idroom", AuthService.protectedRoute, RoomController.deleteRoom)
 
 export default roomRoutes;

@@ -1,3 +1,4 @@
+import CreateRoomDTO from "../dtos/createRoom";
 import Room from "../models/Room";
 
 class RoomService{
@@ -46,12 +47,19 @@ class RoomService{
             const room = await Room.findByPk(idRoom)
 
             if(room  && room?.idProfessor == idTeacher){
-                room.update({
-                    arquivado: !room.arquivado
-                })
+                if(room.arquivado === false){
+                    room.update({
+                    arquivado: true
+                    })
+                }else{
+                    room.update({
+                        arquivado: false
+                    })
+                }
+                
             }
 
-            return room
+            return
         } catch (error) {
          throw new Error()
         }

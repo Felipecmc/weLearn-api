@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import RoomService from "../services/roomService"
+import CreateRoomDTO from "../dtos/createRoom";
 
 class RoomController{
 
     public async createRoom(req: Request, res: Response){
         try {
-            const roomData = req.body
+            const roomData: CreateRoomDTO = req.body
             const newRoom = await RoomService.create(roomData)
             
             res.status(201).json(newRoom);
@@ -32,7 +33,7 @@ class RoomController{
         try {
             const  roomData  = req.body
             const idRoom = req.params.idRoom
-            const idTeacher = req.params.idTeacher
+            const idTeacher = roomData.tokenInfo.id
             const room = await  RoomService.editRoom(roomData, idTeacher, idRoom);
             res.status(200).json(room);
         } catch (error) {
@@ -45,9 +46,9 @@ class RoomController{
         try {
             const  roomData  = req.body
             const idRoom = req.params.idRoom
-            const idTeacher = req.params.idTeacher
+            const idTeacher = roomData.tokenInfo.id
             const room = await  RoomService.editRoomStatus(roomData, idTeacher, idRoom);
-            res.status(200).json(room);
+            res.status(200).json({message: "Status da sala alterad!"});
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Erro ao editar status da sala' });
@@ -57,8 +58,10 @@ class RoomController{
     public async deleteRoom(req: Request, res: Response): Promise<void> {
         try {
             const idRoom = req.params.idRoom
-            const idTeacher = req.params.idTeacher
+            const idTeacher = req.body.tokenInfo.id
+
             await  RoomService.deleteRoom(idRoom, idTeacher);
+
             res.status(200).send('Sala excluída com sucesso');
         } catch (error) {
             console.error(error);
