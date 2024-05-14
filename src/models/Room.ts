@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config'; 
+import User from './User';
 
 class Room extends Model{
     public id!: number;
@@ -38,5 +39,7 @@ Room.init(
         modelName: 'Room',
     }
 )
+
+
 
 export default Room;

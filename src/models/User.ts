@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config'; 
 import bcrypt from 'bcryptjs';
+import Room from './Room';
 
 
 

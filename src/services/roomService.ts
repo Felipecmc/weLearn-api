@@ -1,5 +1,6 @@
 import CreateRoomDTO from "../dtos/createRoom";
 import Room from "../models/Room";
+import RoomUser from "../models/RoomUser";
 
 class RoomService{
     public async create(roomData: any): Promise<Room>{
@@ -19,6 +20,16 @@ class RoomService{
                     idProfessor: idTeacher
                 }
             })
+
+            return rooms
+        } catch{
+           return Error 
+        }
+    }
+
+    public async getAllRooms(): Promise<any>{
+        try {
+            const rooms = await Room.findAll()
 
             return rooms
         } catch{
@@ -74,6 +85,18 @@ class RoomService{
             }
         } catch (error) {
             throw new Error()
+        }
+    }
+
+    public async entryRoom(idStudent: number, idRoom: number): Promise<any>{
+        try {
+            const entryRoom = await RoomUser.create({
+                idAluno: idStudent,
+                idSala: idRoom
+            })
+            return entryRoom
+        } catch (error) {
+           throw new Error
         }
     }
 }

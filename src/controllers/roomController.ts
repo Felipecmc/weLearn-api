@@ -29,6 +29,18 @@ class RoomController{
         }
     }
 
+    public async getAllRooms(req: Request, res: Response){
+        try {
+           
+           const rooms = await  RoomService.getAllRooms()
+
+           res.status(200).json(rooms)
+
+        } catch (error) {
+            return res.status(400).json("nao encontramos salas")
+        }
+    }
+
     public async editRoom(req: Request, res: Response): Promise<void> {
         try {
             const  roomData  = req.body
@@ -68,6 +80,8 @@ class RoomController{
             res.status(500).json({ message: 'Erro ao excluir sala' });
         }
     }
+
+    
 }
 
 export default new RoomController()
