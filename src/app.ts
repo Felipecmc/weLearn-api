@@ -2,15 +2,18 @@ import express, { Request, Response } from 'express';
 import initialize from './initialize';
 import userRoutes from './routes/userRoutes';
 import roomsRoutes from './routes/roomsRoutes';
+const cors = require('cors');
+
 
 const app = express();
-const port = 3000;
+const port = 3001;
+app.use(cors())
 
 initialize();
 
 app.use(express.json());
 
-app.use('/api/users',userRoutes)
+app.use('/api/users', userRoutes)
 app.use("/api/rooms", roomsRoutes)
 
 app.listen(port, () => {
