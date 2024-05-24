@@ -17,9 +17,11 @@ class AuthController {
         return;
       }
 
-      const token = await AuthService.generateToken(user);
 
-      res.status(200).json({ token });
+      const token = await AuthService.generateToken(user);
+      const userToSend = {nome: user.nome, email: user.email, xp: user.xp, perfil: user.perfil, weCoin: user.weCoin, token }
+
+      res.status(200).json({ ...userToSend });
     } catch (error) {
       console.error('Erro na autenticação:', error);
       res.status(500).json({ error: 'Erro na autenticação' });
