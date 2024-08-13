@@ -19,7 +19,7 @@ class AuthController {
 
 
       const token = await AuthService.generateToken(user);
-      const userToSend = {nome: user.nome, email: user.email, xp: user.xp, perfil: user.perfil, weCoin: user.weCoin, token }
+      const userToSend = {nome: user.nome, email: user.email, xp: user.xp, perfil: user.perfil, weCoin: user.weCoin, elo : user.elo, token }
 
       res.status(200).json({ ...userToSend });
     } catch (error) {

@@ -13,6 +13,7 @@ class User extends Model {
   public senha!: string;
   public xp!: number;
   public weCoin!: number;
+  public elo!: 'Diamante' | 'Ouro' | 'Prata' | 'Bronze'
 
   static async generateHash(password: string): Promise<string> {
     return bcrypt.hash(password, 10);
@@ -69,6 +70,11 @@ User.init(
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
       defaultValue: 0,
+    },
+    elo: {
+      type: DataTypes.ENUM('Diamante', 'Ouro', 'Prata', 'Bronze'),
+      allowNull: false,
+      defaultValue: 'Bronze',
     },
   },
   {
