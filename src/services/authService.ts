@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import User  from '../models/User';
 import { NextFunction, Request, Response } from 'express';
 
+require('dotenv').config();
+
 class AuthService {
   static async generateToken(user: User): Promise<string> {
     const payload = {
@@ -11,11 +13,11 @@ class AuthService {
       email: user.email,
     };
 
-    return jwt.sign(payload, 'your_secret_key', { expiresIn: '1h' });
+    return jwt.sign(payload, process.env.PASSWORD_HASH_KEY as string, { expiresIn: '1h' });
   }
 
   static async verifyToken(token: string): Promise<any> {
-    return jwt.verify(token, 'your_secret_key');
+    return jwt.verify(token, process.env.PASSWORD_HASH_KEY as string);
   }
 
   static async protectedRoute(req: Request, res: Response, next: NextFunction): Promise<void> {

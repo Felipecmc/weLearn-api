@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config'; 
 import bcrypt from 'bcryptjs';
@@ -17,7 +15,7 @@ class User extends Model {
   public elo!: 'Diamante' | 'Ouro' | 'Prata' | 'Bronze'
 
   static async generateHash(password: string): Promise<string> {
-    return bcrypt.hash(password, parseInt(process.env.PASSWORD_HASH_SALT as string));
+    return bcrypt.hash(password, 10);
   }
   
   
