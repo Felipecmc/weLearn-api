@@ -1,7 +1,10 @@
+require('dotenv').config();
+
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config'; 
 import bcrypt from 'bcryptjs';
 import Room from './Room';
+
 
 class User extends Model {
   public id!: number;
@@ -14,8 +17,9 @@ class User extends Model {
   public elo!: 'Diamante' | 'Ouro' | 'Prata' | 'Bronze'
 
   static async generateHash(password: string): Promise<string> {
-    return bcrypt.hash(password, 10);
+    return bcrypt.hash(password, parseInt(process.env.PASSWORD_HASH_SALT as string));
   }
+  
   
   static async compareHash(password: string, hash: string): Promise<boolean> {
     return bcrypt.compare(password, hash);
