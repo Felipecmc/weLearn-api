@@ -3,8 +3,6 @@ import sequelize from '../config';
 import bcrypt from 'bcryptjs';
 import Room from './Room';
 
-
-
 class User extends Model {
   public id!: number;
   public nome!: string;
@@ -23,9 +21,6 @@ class User extends Model {
     return bcrypt.compare(password, hash);
   }
 }
-
-
-
 
 User.init(
   {
