@@ -1,6 +1,7 @@
 import CreateRoomDTO from "../dtos/createRoom";
 import Room from "../models/Room";
 import RoomUser from "../models/RoomUser";
+import User from "../models/User";
 
 class RoomService{
     public async create(roomData: any): Promise<Room>{
@@ -27,11 +28,53 @@ class RoomService{
         }
     }
 
-    public async getAllRooms(): Promise<any>{
+    public async getAllRooms(id: number): Promise<any>{
+        
         try {
-            const rooms = await Room.findAll()
+            const user = await User.findByPk(id)
 
-            return rooms
+            if(user.perfil == "Professor"){
+                const rooms = await Room.findAll({
+                    where: {
+                        idProfessor: id
+                    }
+                })
+    
+                return rooms
+            }else{
+                const roomsArray = []
+                const userRooms = RoomUser.findAll({
+                    where: {
+                        idAluno: id
+                    }
+                })
+
+                if(userRooms.length > 0){
+                    for(let i =0; i < userRooms.length; i++){
+                        const room = Rooms.find({
+                            where: {
+                               id: userRooms[i].idSala
+                            }
+                        })
+
+                        const professor = await User.findByPk(room.idProfessor);
+
+                        const random = Math.floor(Math.random() + 10 + 1) * 10
+
+                        const roomToReturn = {
+                            id: room.id,
+                            nomeSala: room.nome,
+                            nomeProfessor: professor.nome,
+                            percentualConcluido: random,
+                            elo: userRooms.elo;
+                        }
+
+                        roomsArray.push(roomToReturn)
+                    }
+
+                    return roomsArray;
+                }
+            }
         } catch{
            return Error 
         }

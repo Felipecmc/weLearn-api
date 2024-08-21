@@ -6,6 +6,7 @@ class RoomUser extends Model {
   public idAluno!: string;
   public idSala!: string;
   public percentualConcluido!: number;
+  public elo!: 'Diamante' | 'Ouro' | 'Prata' | 'Bronze'
 }
 RoomUser.init({
     id: {
@@ -26,7 +27,12 @@ RoomUser.init({
     percentualConcluido: {
         type: DataTypes.INTEGER,
         defaultValue: 0
-    }
+    },
+    elo: {
+        type: DataTypes.ENUM('Diamante', 'Ouro', 'Prata', 'Bronze'),
+        allowNull: false,
+        defaultValue: 'Bronze',
+      },
 
 }, { sequelize, modelName: 'roomUser', timestamps: true });
 
