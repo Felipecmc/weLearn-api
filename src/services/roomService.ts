@@ -5,13 +5,18 @@ import User from "../models/User";
 
 class RoomService{
     public async create(roomData: any): Promise<Room>{
-        
+
+        const user = await User.findByPk(id)
+
+        if(user.perfil == "Professor"){
             const newRoom = await Room.create({
                 nome: roomData.nome,
                 idProfessor: roomData.tokenInfo.id,
             })
             return newRoom;
-        
+        }else{
+            throw new Error
+        }
     }
 
     public async getAllRoomsTeacher(idTeacher: number): Promise<any>{
