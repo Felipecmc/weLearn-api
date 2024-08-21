@@ -66,11 +66,12 @@ class RoomService{
                             nomeSala: room.nome,
                             nomeProfessor: professor.nome,
                             percentualConcluido: random,
-                            elo: userRooms.elo;
+                            elo: userRooms.elo
                         }
 
                         roomsArray.push(roomToReturn)
                     }
+
 
                     return roomsArray;
                 }
