@@ -13,7 +13,7 @@ class AuthService {
       email: user.email,
     };
 
-    return jwt.sign(payload, process.env.PASSWORD_HASH_KEY as string, { expiresIn: '5000ms' });
+    return jwt.sign(payload, process.env.PASSWORD_HASH_KEY as string, { expiresIn: '1h' });
   }
 
   static async verifyToken(token: string): Promise<any> {
