@@ -37,7 +37,8 @@ class RoomController{
            res.status(200).json(rooms)
 
         } catch (error) {
-            return res.status(400).json("nao encontramos salas")
+            const room = []
+            return res.status(400).json([])
         }
     }
 

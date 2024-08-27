@@ -65,7 +65,7 @@ class RoomService{
                         idAluno: idUser
                     }
                 })
-
+                
                 if(userRooms && userRooms.length > 0){
                     for(let i =0; i < userRooms.length; i++){
                         const room = await Room.findOne({
@@ -153,6 +153,16 @@ class RoomService{
 
     public async entryRoom(idStudent: number, idRoom: number): Promise<any>{
         try {
+            const userIsAlreadyIn = await RoomUser.findOne({
+               where : {
+                idAluno: idStudent,
+                idSala: idRoom
+               } 
+            })
+
+            if(userIsAlreadyIn){
+                throw new Error
+            }
             const entryRoom = await RoomUser.create({
                 idAluno: idStudent,
                 idSala: idRoom
