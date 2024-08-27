@@ -34,7 +34,6 @@ class RoomService{
     }
 
     public async getAllRooms(idUser: number): Promise<any>{
-        
         try {
             const user = await User.findByPk(idUser)
             const roomsToReturn = []
@@ -56,16 +55,13 @@ class RoomService{
                         roomsToReturn.push(teacherRoom)
                     }
                 }
-    
-                return roomsToReturn
             }else{
-                const roomsArray = []
                 const userRooms = await RoomUser.findAll({
                     where: {
                         idAluno: idUser
                     }
                 })
-                
+
                 if(userRooms && userRooms.length > 0){
                     for(let i =0; i < userRooms.length; i++){
                         const room = await Room.findOne({
@@ -86,17 +82,16 @@ class RoomService{
                                     elo: userRooms[i].elo
                                 }
         
-                                roomsArray.push(roomToReturn)
+                                roomsToReturn.push(roomToReturn)
                             }
                         }  
                     }
-
-
-                    return roomsArray;
                 }
             }
+            
+            return roomsToReturn;
         } catch{
-           return Error 
+           throw new Error 
         }
     }
 
