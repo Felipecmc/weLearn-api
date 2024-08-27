@@ -6,9 +6,9 @@ import User from "../models/User";
 class RoomService{
     public async create(roomData: any): Promise<Room>{
 
-        const user = await User.findByPk(id)
+        const user = await User.findByPk(roomData.tokenInfo.id)
 
-        if(user.perfil == "Professor"){
+        if(user && user.perfil == "Professor"){
             const newRoom = await Room.create({
                 nome: roomData.nome,
                 idProfessor: roomData.tokenInfo.id,
@@ -33,48 +33,50 @@ class RoomService{
         }
     }
 
-    public async getAllRooms(id: number): Promise<any>{
+    public async getAllRooms(idUser: number): Promise<any>{
         
         try {
-            const user = await User.findByPk(id)
+            const user = await User.findByPk(idUser)
 
-            if(user.perfil == "Professor"){
+            if(user && user.perfil == "Professor"){
                 const rooms = await Room.findAll({
                     where: {
-                        idProfessor: id
+                        idProfessor: idUser
                     }
                 })
     
                 return rooms
             }else{
                 const roomsArray = []
-                const userRooms = RoomUser.findAll({
+                const userRooms = await RoomUser.findAll({
                     where: {
-                        idAluno: id
+                        idAluno: idUser
                     }
                 })
 
-                if(userRooms.length > 0){
+                if(userRooms && userRooms.length > 0){
                     for(let i =0; i < userRooms.length; i++){
-                        const room = Rooms.find({
+                        const room = await Room.findOne({
                             where: {
                                id: userRooms[i].idSala
                             }
                         })
-
+                        if(room){
                         const professor = await User.findByPk(room.idProfessor);
+                            if(professor){
+                                const random = Math.floor(Math.random() + 10 + 1) * 10
 
-                        const random = Math.floor(Math.random() + 10 + 1) * 10
-
-                        const roomToReturn = {
-                            id: room.id,
-                            nomeSala: room.nome,
-                            nomeProfessor: professor.nome,
-                            percentualConcluido: random,
-                            elo: userRooms.elo
-                        }
-
-                        roomsArray.push(roomToReturn)
+                                const roomToReturn = {
+                                    id: room.id,
+                                    nomeSala: room.nome,
+                                    nomeProfessor: professor.nome,
+                                    percentualConcluido: random,
+                                    elo: userRooms[i].elo
+                                }
+        
+                                roomsArray.push(roomToReturn)
+                            }
+                        }  
                     }
 
 

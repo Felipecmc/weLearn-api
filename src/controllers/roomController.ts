@@ -31,7 +31,7 @@ class RoomController{
 
     public async getAllRooms(req: Request, res: Response){
         try {
-           const userId = req.header.tokenInfo.id
+           const userId = parseInt(req.body.tokenInfo.id)
            const rooms = await  RoomService.getAllRooms(userId)
 
            res.status(200).json(rooms)
