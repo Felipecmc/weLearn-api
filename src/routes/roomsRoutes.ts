@@ -9,6 +9,7 @@ roomRoutes.get("/", AuthService.protectedRoute, RoomController.getAllRooms)
 roomRoutes.get("/:id", AuthService.protectedRoute, RoomController.getAllTeacherRooms)
 roomRoutes.put("/:idRoom", AuthService.protectedRoute, RoomController.editRoom)
 roomRoutes.get("/status/:idRoom", AuthService.protectedRoute, RoomController.editRoomStatus)
+roomRoutes.post("/entry", AuthService.protectedRoute, RoomController.entryRoom)
 roomRoutes.delete("/:idroom", AuthService.protectedRoute, RoomController.deleteRoom)
 
 export default roomRoutes;

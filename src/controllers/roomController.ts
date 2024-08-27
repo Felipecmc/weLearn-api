@@ -81,7 +81,17 @@ class RoomController{
         }
     }
 
-    
+    public async entryRoom(req: Request, res: Response): Promise<void>{
+        try {
+            const userId = parseInt(req.body.tokenInfo.id)
+            const roomId = req.body.idSala
+
+            const entry = await RoomService.entryRoom(userId, roomId)
+            res.status(200).send('Entrou na sala com sucesso');
+        } catch (error) {
+            res.status(500).json({ message: 'Erro ao entrar na sala' });
+        }
+    }
 }
 
 export default new RoomController()
