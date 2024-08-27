@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import RoomService from "../services/roomService"
 import CreateRoomDTO from "../dtos/createRoom";
+import Room from "../models/Room";
 
 class RoomController{
 
@@ -37,8 +38,8 @@ class RoomController{
            res.status(200).json(rooms)
 
         } catch (error) {
-            const room = []
-            return res.status(400).json([])
+            const room: Array<Room> = []
+            return res.status(400).json(room)
         }
     }
 
