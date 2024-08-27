@@ -64,7 +64,7 @@ class RoomService{
                         if(room){
                         const professor = await User.findByPk(room.idProfessor);
                             if(professor){
-                                const random = Math.floor(Math.random() + 10 + 1) * 10
+                                const random = Math.floor(Math.random() * 101);
 
                                 const roomToReturn = {
                                     id: room.id,
