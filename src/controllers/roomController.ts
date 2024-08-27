@@ -86,7 +86,6 @@ class RoomController{
             const userId = parseInt(req.body.tokenInfo.id);
             const roomId = req.body.idSala;
     
-            // Validação básica
             if (isNaN(userId) || !roomId) {
                 res.status(400).json({ message: 'Parâmetros inválidos' });
                 return

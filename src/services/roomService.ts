@@ -37,15 +37,27 @@ class RoomService{
         
         try {
             const user = await User.findByPk(idUser)
-
+            const roomsToReturn = []
             if(user && user.perfil == "Professor"){
                 const rooms = await Room.findAll({
                     where: {
                         idProfessor: idUser
                     }
                 })
+
+                if(rooms){
+                    for(let i = 0;i < rooms.length; i++ ){
+                        const teacherRoom = {
+                            id: rooms[i].id,
+                            nomeSala: rooms[i].nome,
+                            nomeProfessor: user.nome,
+                        }
+
+                        roomsToReturn.push(teacherRoom)
+                    }
+                }
     
-                return rooms
+                return roomsToReturn
             }else{
                 const roomsArray = []
                 const userRooms = await RoomUser.findAll({
