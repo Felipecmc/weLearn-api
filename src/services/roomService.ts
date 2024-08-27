@@ -34,6 +34,7 @@ class RoomService{
     }
 
     public async getAllRooms(idUser: number): Promise<any>{
+        
         try {
             const user = await User.findByPk(idUser)
             const roomsToReturn = []
@@ -90,8 +91,9 @@ class RoomService{
             }
             
             return roomsToReturn;
+            
         } catch{
-           throw new Error 
+           return Error 
         }
     }
 
