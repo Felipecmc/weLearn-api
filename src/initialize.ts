@@ -12,7 +12,7 @@ const modelsToSync = [ User, Room, RoomUser, Questionary /* Adicione outros mode
 async function syncModels(models: typeof Model[]) {
   try {
     for (const model of models) {
-      await model.sync({ force: true });
+      await model.sync({ force: false });
       console.log(`Tabela ${model.name} sincronizada com sucesso.`);
     }
   } catch (error) {

@@ -42,6 +42,8 @@ class QuestionaryService{
             const edit = questionary?.update({
                 nome: data.nome
             })
+
+            return edit
         }else{
             throw new Error
         }
