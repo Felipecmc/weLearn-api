@@ -3,15 +3,16 @@ import sequelize from './config';
 import User from './models/User';
 import Room from './models/Room';
 import RoomUser from './models/RoomUser';
+import Questionary from './models/Questionary';
 // Importe outros modelos conforme necessário
 
 // Lista de modelos que deseja sincronizar
-const modelsToSync = [ User, Room, RoomUser /* Adicione outros modelos aqui */];
+const modelsToSync = [ User, Room, RoomUser, Questionary /* Adicione outros modelos aqui */];
 
 async function syncModels(models: typeof Model[]) {
   try {
     for (const model of models) {
-      await model.sync({ force: false });
+      await model.sync({ force: true });
       console.log(`Tabela ${model.name} sincronizada com sucesso.`);
     }
   } catch (error) {
