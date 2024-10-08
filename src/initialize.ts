@@ -4,10 +4,11 @@ import User from './models/User';
 import Room from './models/Room';
 import RoomUser from './models/RoomUser';
 import Questionary from './models/Questionary';
+import Question from './models/Question';
 // Importe outros modelos conforme necessário
 
 // Lista de modelos que deseja sincronizar
-const modelsToSync = [ User, Room, RoomUser, Questionary /* Adicione outros modelos aqui */];
+const modelsToSync = [ User, Room, RoomUser, Questionary, Question/* Adicione outros modelos aqui */];
 
 async function syncModels(models: typeof Model[]) {
   try {
