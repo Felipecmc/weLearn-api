@@ -1,7 +1,5 @@
-import { Identifier } from "sequelize";
 import Question from "../models/Question";
 import Responses from "../models/Responses";
-import ResponseDTO from "../dtos/reponseDTO";
 
 class QuestionService{
   public async getAllQuestions(idQuestionario: number){
@@ -87,7 +85,7 @@ class QuestionService{
             const question = await Question.findByPk(data[i].idQuestao)
 
             if(question != null){
-              const response = Responses.create({
+              const response = await Responses.create({
                 idQuestion: data[i].idQuestao,
                 idAluno: idAluno,
                 idQuestionarie: idQuestionarie,
