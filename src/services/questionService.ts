@@ -1,4 +1,5 @@
 import Question from "../models/Question";
+import Responses from "../models/Responses";
 
 class QuestionService{
   public async getAllQuestions(idQuestionario: number){
@@ -74,6 +75,27 @@ class QuestionService{
       }
     } catch (error) {
       throw new Error
+    }
+  }
+
+  public async response(data: any, idAluno: number){
+    try {
+      const responses = []
+      data.forEach(async e => {
+        const question = await Question.findByPk(e.idQuestao)
+        if(question != null){
+          const response = Responses.create({
+            idQuestion: e.idQuestao,
+            idAluno: idAluno,
+            response: e.resposta,
+            acertou: e.resposta == question.alternativaCorreta ? true : false
+          })
+
+          responses.push(response)
+        }
+      });
+    } catch (error) {
+      throw new Error()
     }
   }
 }

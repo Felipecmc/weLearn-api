@@ -21,3 +21,10 @@ app.use("/api/questionaries", questionaryRoutes)
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+
+// tabela questao - resposta - aluno, com indicador certo ou errado (0 ou 1)
+
+//
+
+

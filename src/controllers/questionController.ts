@@ -51,6 +51,19 @@ class QuestionController{
       return res.status(400).json("erro ao deletar a questão")
     }
   }
+
+  public async response(req: Request, res: Response){
+    try {
+      const data = req.body
+      const idAluno = parseInt(req.body.tokenInfo.id)
+
+      const response = await QuestionService.response(data, idAluno)
+
+      return res.json(response).status(200)
+    } catch (error) {
+      return res.json({"Erro ao responder questionário"}).status(400)
+    }
+  }
 }
 
 export default new QuestionController()
