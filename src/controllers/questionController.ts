@@ -61,7 +61,7 @@ class QuestionController{
 
       return res.json(response).status(200)
     } catch (error) {
-      return res.json({"Erro ao responder questionário"}).status(400)
+      return res.json("Erro ao responder questionário").status(400)
     }
   }
 }
