@@ -56,8 +56,9 @@ class QuestionController{
     try {
       const data = req.body
       const idAluno = parseInt(req.body.tokenInfo.id)
+      const idQuestionarie = parseInt(req.params.idQuestionario)
 
-      const response = await QuestionService.response(data, idAluno)
+      const response = await QuestionService.response(data, idAluno, idQuestionarie)
 
       return res.json(response).status(200)
     } catch (error) {

@@ -78,7 +78,7 @@ class QuestionService{
     }
   }
 
-  public async response(data: any, idAluno: number){
+  public async response(data: any, idAluno: number, idQuestionarie: number){
     try {
       const responses = []
       data.forEach(async e => {
@@ -87,6 +87,7 @@ class QuestionService{
           const response = Responses.create({
             idQuestion: e.idQuestao,
             idAluno: idAluno,
+            idQuestionarie: idQuestionarie,
             response: e.resposta,
             acertou: e.resposta == question.alternativaCorreta ? true : false
           })

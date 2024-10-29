@@ -6,6 +6,7 @@ class Responses extends Model{
     public id!: number
     public idQuestion!: number
     public idAluno!: number
+    public idQuestionarie!: number
     public response!: string
     public acertou!: boolean
 
@@ -21,6 +22,10 @@ class Responses extends Model{
                 allowNull: false,
             },
             idQuestion: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            idQuestionarie: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
