@@ -1,5 +1,7 @@
+import { Identifier } from "sequelize";
 import Question from "../models/Question";
 import Responses from "../models/Responses";
+import ResponseDTO from "../dtos/reponseDTO";
 
 class QuestionService{
   public async getAllQuestions(idQuestionario: number){
@@ -81,21 +83,21 @@ class QuestionService{
   public async response(data: any, idAluno: number, idQuestionarie: number){
     try {
       const responses = []
-      data.forEach(async e => {
-        const question = await Question.findByPk(e.idQuestao)
-        if(question != null){
-          const response = Responses.create({
-            idQuestion: e.idQuestao,
-            idAluno: idAluno,
-            idQuestionarie: idQuestionarie,
-            response: e.resposta,
-            acertou: e.resposta == question.alternativaCorreta ? true : false
-          })
+          for(let i = 0; data.length > i; i++){
+            const question = await Question.findByPk(data[i].idQuestao)
 
-          responses.push(response)
+            if(question != null){
+              const response = Responses.create({
+                idQuestion: data[i].idQuestao,
+                idAluno: idAluno,
+                idQuestionarie: idQuestionarie,
+                response: data[i].resposta,
+                acertou: data[i].resposta == question.alternativaCorreta ? true : false
+              })
+              responses.push(response)
+          }
         }
-      });
-    } catch (error) {
+      } catch (error) {
       throw new Error()
     }
   }
