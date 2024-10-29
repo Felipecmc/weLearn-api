@@ -1,3 +1,4 @@
+import ResponseDTO from "../dtos/reponseDTO";
 import Question from "../models/Question";
 import Responses from "../models/Responses";
 
@@ -78,7 +79,7 @@ class QuestionService{
     }
   }
 
-  public async response(data: any, idAluno: number, idQuestionarie: number){
+  public async response(data: ResponseDTO[], idAluno: number, idQuestionarie: number){
     try {
       const responses = []
           for(let i = 0; data.length > i; i++){
@@ -95,6 +96,7 @@ class QuestionService{
               responses.push(response)
           }
         }
+        return responses
       } catch (error) {
       throw new Error()
     }
