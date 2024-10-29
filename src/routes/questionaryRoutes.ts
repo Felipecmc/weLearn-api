@@ -13,6 +13,6 @@ questionaryRoutes.get("/questions/:idQuestionario", AuthService.protectedRoute, 
 questionaryRoutes.post("/questions", AuthService.protectedRoute, QuestionController.createQuestion)
 questionaryRoutes.put("/questions", AuthService.protectedRoute, QuestionController.updateQuestion)
 questionaryRoutes.delete("/questions/:id", AuthService.protectedRoute, QuestionController.deleteQuestion)
-questionaryRoutes.post("/questions/answer", AuthService.protectedRoute, QuestionController.response)
+questionaryRoutes.post("/answer", AuthService.protectedRoute, QuestionController.response)
 
 export default questionaryRoutes
